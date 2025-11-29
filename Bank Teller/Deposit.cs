@@ -25,48 +25,52 @@ namespace Bank_Teller
             lblNewBalance.Text = account.Balance.ToString("C");
         }
 
-        private void txtDepositAmount_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            InputValidation.FloatingNumbersOnly(sender, e);
-        }
-
         private void btnDeposit_Click(object sender, EventArgs e)
         {
-            if (txtDepositAmount.Text == "" || Convert.ToDecimal(txtDepositAmount.Text) <= 0 ||
-                Convert.ToDecimal(txtDepositAmount.Text) > 100000.99M)
+            if (!decimal.TryParse(txtDepositAmount.Text, out decimal amount))
+            {
+                MessageBox.Show("Please enter a valid number.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (amount <= 0 || amount > 100000.99M)
             {
                 MessageBox.Show("Invalid deposit amount!\nPlease try again.", "Invalid Deposit Amount", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            else
+
+            account.Balance = account.Balance + amount;
+            MessageBox.Show("Deposit was successful!\nNew balance will now reflect." +
+                "\nTransaction will be saved.", "Deposit success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            lblCurrentBalance.Text = account.Balance.ToString("C");
+            lblNewBalance.Text = account.Balance.ToString("C");
+
+            account.Transactions.Add(new TransactionDTO
             {
-                account.Balance = account.Balance + Convert.ToDecimal(txtDepositAmount.Text);
-                MessageBox.Show("Deposit was successful!\nNew balance will now reflect." +
-                    "\nTransaction will be saved.", "Deposit success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                TransactionDate = DateTime.Now,
+                TransactionType = "Deposit",
+                Amount = amount
+            });
 
-                lblCurrentBalance.Text = account.Balance.ToString("C");
-                lblNewBalance.Text = account.Balance.ToString("C");
-
-                account.Transactions.Add(new TransactionDTO
-                {
-                    TransactionDate = DateTime.Now,
-                    TransactionType = "Deposit",
-                    Amount = Convert.ToDecimal(txtDepositAmount.Text)
-                });
-
-                txtDepositAmount.Text = "";
-            }
+            txtDepositAmount.Text = "";
         }
 
         private void txtDepositAmount_TextChanged(object sender, EventArgs e)
         {
-            if(txtDepositAmount.Text == "" || Convert.ToDecimal(txtDepositAmount.Text) <= 0)
+            if (decimal.TryParse(txtDepositAmount.Text, out decimal amount) && amount > 0)
             {
-                lblNewBalance.Text = account.Balance.ToString("C");
+                lblNewBalance.Text = (account.Balance + amount).ToString("C");
             }
             else
             {
-                lblNewBalance.Text = (account.Balance + Convert.ToDecimal(txtDepositAmount.Text)).ToString("C");
+                lblNewBalance.Text = account.Balance.ToString("C");
             }
+        }
+
+        private void txtDepositAmount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            InputValidation.FloatingNumbersOnly(sender, e);
         }
     }
 }

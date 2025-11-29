@@ -27,40 +27,44 @@ namespace Bank_Teller
 
         private void btnWithdraw_Click(object sender, EventArgs e)
         {
-            if (txtWithdrawAmount.Text == "" || Convert.ToDecimal(txtWithdrawAmount.Text) <= 0 ||
-                Convert.ToDecimal(txtWithdrawAmount.Text) > 100000.99M || Convert.ToDecimal(txtWithdrawAmount.Text) > account.Balance)
+            if (!decimal.TryParse(txtWithdrawAmount.Text, out decimal amount))
             {
-                MessageBox.Show("Invalid withdraw amount!\nPlease try again.", "Invalid Withdraw Amount", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please enter a valid number.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            else
+
+            if (amount <= 0 || amount > 100000.99M || amount > account.Balance)
             {
-                account.Balance = account.Balance - Convert.ToDecimal(txtWithdrawAmount.Text);
-                MessageBox.Show("Withdraw was successful!\nNew balance will now reflect." +
-                    "\nTransaction will be saved.", "Withdraw success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                lblCurrentBalance.Text = account.Balance.ToString("C");
-                lblNewBalance.Text = account.Balance.ToString("C");
-
-                account.Transactions.Add(new TransactionDTO
-                {
-                    TransactionDate = DateTime.Now,
-                    TransactionType = "Withdraw",
-                    Amount = Convert.ToDecimal(txtWithdrawAmount.Text)
-                });
-
-                txtWithdrawAmount.Text = "";
+                MessageBox.Show("Invalid deposit amount!\nPlease try again.", "Invalid Deposit Amount", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
+
+            account.Balance = account.Balance - amount;
+            MessageBox.Show("Withdraw was successful!\nNew balance will now reflect." +
+                "\nTransaction will be saved.", "Withdraw success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            lblCurrentBalance.Text = account.Balance.ToString("C");
+            lblNewBalance.Text = account.Balance.ToString("C");
+
+            account.Transactions.Add(new TransactionDTO
+            {
+                TransactionDate = DateTime.Now,
+                TransactionType = "Withdraw",
+                Amount = amount
+            });
+
+            txtWithdrawAmount.Text = "";
         }
 
         private void txtWithdrawAmount_TextChanged(object sender, EventArgs e)
         {
-            if (txtWithdrawAmount.Text == "" || Convert.ToDecimal(txtWithdrawAmount.Text) <= 0)
+            if (decimal.TryParse(txtWithdrawAmount.Text, out decimal amount) && amount > 0)
             {
-                lblNewBalance.Text = account.Balance.ToString("C");
+                lblNewBalance.Text = (account.Balance - amount).ToString("C");
             }
             else
             {
-                lblNewBalance.Text = (account.Balance - Convert.ToDecimal(txtWithdrawAmount.Text)).ToString("C");
+                lblNewBalance.Text = account.Balance.ToString("C");
             }
         }
 
