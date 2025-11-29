@@ -84,7 +84,7 @@
             // 
             txtWithdrawAmount.BorderStyle = BorderStyle.FixedSingle;
             txtWithdrawAmount.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtWithdrawAmount.Location = new Point(323, 200);
+            txtWithdrawAmount.Location = new Point(330, 200);
             txtWithdrawAmount.MaxLength = 9;
             txtWithdrawAmount.Name = "txtWithdrawAmount";
             txtWithdrawAmount.Size = new Size(218, 35);
@@ -98,9 +98,9 @@
             label2.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label2.Location = new Point(38, 200);
             label2.Name = "label2";
-            label2.Size = new Size(279, 30);
+            label2.Size = new Size(295, 30);
             label2.TabIndex = 10;
-            label2.Text = "Enter the amount of deposit:";
+            label2.Text = "Enter the amount of withdraw:";
             // 
             // lblCurrentBalance
             // 

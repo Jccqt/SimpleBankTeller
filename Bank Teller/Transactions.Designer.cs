@@ -68,6 +68,7 @@
             // dataGridTransactions
             // 
             dataGridTransactions.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridTransactions.Enabled = false;
             dataGridTransactions.Location = new Point(3, 122);
             dataGridTransactions.Name = "dataGridTransactions";
             dataGridTransactions.Size = new Size(622, 325);

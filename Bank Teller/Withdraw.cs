@@ -30,7 +30,7 @@ namespace Bank_Teller
             if (txtWithdrawAmount.Text == "" || Convert.ToDecimal(txtWithdrawAmount.Text) <= 0 ||
                 Convert.ToDecimal(txtWithdrawAmount.Text) > 100000.99M || Convert.ToDecimal(txtWithdrawAmount.Text) > account.Balance)
             {
-                MessageBox.Show("Invalid deposit amount!\nPlease try again.", "Invalid Deposit Amount", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Invalid withdraw amount!\nPlease try again.", "Invalid Withdraw Amount", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
