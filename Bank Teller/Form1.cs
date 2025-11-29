@@ -27,20 +27,16 @@ namespace Bank_Teller
             }
             else
             {
-
+                account.Balance = 50235.43M;
+                var form2 = new Form2();
+                form2.Show();
+                this.Hide();
             }
 
             if (failedCounter == 3) // will check if the failed counter is already 3
             {
                 MessageBox.Show("Sorry, you failed to verify your PIN.", "Failed to Verify PIN", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit(); // will exit the application
-            }
-            else
-            {
-                account.Balance = 50235.43M;
-                var form2 = new Form2();
-                form2.Show();
-                this.Hide();
             }
         }
 
