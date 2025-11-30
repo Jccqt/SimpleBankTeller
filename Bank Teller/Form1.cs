@@ -23,7 +23,7 @@ namespace Bank_Teller
             if (txtPIN.Text != account.PIN) // will check if the PIN was invalid
             {
                 failedCounter++;
-                MessageBox.Show($"Invalid PIN (failed count: {failedCounter}", "Invalid PIN", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Invalid PIN (failed count: {failedCounter})", "Invalid PIN", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {

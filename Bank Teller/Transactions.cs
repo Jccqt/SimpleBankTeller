@@ -33,7 +33,7 @@ namespace Bank_Teller
                 Name = "TransactionDate",
                 DataPropertyName = "TransactionDate",
                 HeaderText = "Transaction Date",
-                DefaultCellStyle = { Format = "yyyy-MM-dd hh:mm tt" }
+                DefaultCellStyle = { Format = "yyyy-MM-dd hh:mm:ss tt" }
             });
 
             dataGridTransactions.Columns.Add(new DataGridViewTextBoxColumn
